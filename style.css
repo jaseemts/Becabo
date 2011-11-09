@@ -1,5 +1,15 @@
 * { margin:0; padding:0; font-family: 'TheSerifRegular';}
+html,body { height: 100%; }
 body { background: #f8f8f8; }
+/*Opera Fix*/
+body:before {
+	content:"";
+	height:100%;
+	float:left;
+	width:0;
+	margin-top:-32767px;/
+}
+
 .clear { clear: both; }
 
 /* clearfix hack */
@@ -17,6 +27,9 @@ body { background: #f8f8f8; }
 /* ---------------------  GLOBAL -------------------------- */
 /* -------------------------------------------------------- */
 
+article, aside, figure, footer, header, hgroup, 
+  menu, nav, section { display: block; }
+img { border: none; }
 ul { list-style-type: none; }
 p { color: #9faca6; }
 em.highlighted { background: #83A3A1; color: #fff; }
@@ -48,12 +61,13 @@ footer { clear: both }
 }
 header{	
 	width: 960px;
-	margin: 0 auto; padding: 15px 0 10px 0;
+	margin: 0 auto; padding: 12px 0 8px;
 }
 #profile-1, #profile-2 {  clear: both; overflow: hidden; }
+#wrap { min-height: 100%; }
 #container {
 	width: 960px;
-	padding: 10px 0; margin: 0 auto;
+	margin: 0 auto;
 	position: relative;
 }
 
@@ -78,14 +92,15 @@ ul#nav li:last-child {
 }
 ul#nav li a{
 	text-decoration: none;
-	color: #9fa1a4;
 	/* CSS3 Transition Magic */
 	-webkit-transition: all .3s ease-out;
 	-moz-transition:all .3s ease-out;
 	-o-transition: all .3s ease-out;
 	transition: all .3s ease-out ;
 }
-
+a.active-tab {
+	color: #76CDCB;
+}
 
 
 /* -------------------------------------------------------- */
@@ -130,7 +145,7 @@ ul#nav li a{
 /* -------------------------------------------------------- */
 
 #people-list{
-	padding: 200px 0 0 0;
+	padding: 200px 0 10px 0;
 	width: 700px;
 	margin: 0 auto;
 }
@@ -147,32 +162,37 @@ ul#nav li a{
 	color: #5f5f5f;
 	display: block;
 	background-image: url(images/story-sprite.png);
-	line-height: 360px;
+	line-height: 290px;
 	text-align: center;
 	opacity: 0.7;
 }
+#people-list span { font-family: 'Museo700'; }
 #people-list li a:hover{
 	opacity: 1;
 }
+#people-list a {
+	background-image: url(images/story-sprite.png);
+	background-repeat: no-repeat;
+}
 #people-list a.people-1{
-	width: 53px; height: 159px;
-	background-position: -2536px -2517px;
+	background-position: -3111px -2848px;
+	width: 45px; height: 128px;
 }
 #people-list a.people-2{
-	width: 52px; height: 159px;
-	background-position: -2663px -2517px;
+	background-position: -3200px -2848px;
+	width: 54px; height: 128px;
 }
 #people-list a.people-3{
-	width: 57px; height: 159px;
-	background-position: -2788px -2517px;
+	background-position: -3306px -2848px;
+	width: 53px; height: 128px;
 }
 #people-list a.people-4{
-	width: 66px; height: 159px;
-	background-position: -2919px -2517px;
+	background-position: -3416px -2848px;
+	width: 58px; height: 128px;
 }
 #people-list a.people-5{
-	width: 50px; height: 159px;
-	background-position: -3059px -2517px;
+	background-position: -3519px -2848px;
+	width: 54px; height: 128px;
 }
  
  
@@ -180,7 +200,6 @@ ul#nav li a{
 /* ---------------------  OUTPUT BOX ---------------------- */
 /* -------------------------------------------------------- */
 
-#output-box { overflow: hidden; }
 .pStory { padding: 0 0 45px 0; margin-bottom: 20px; min-height: 380px;}
 .pNav { position: relative; margin: 15px 0 4px 0; }
 .pPrevNext a{
@@ -222,7 +241,7 @@ ul#nav li a{
 a.prev, a.next { position: absolute; top: 35%; }
 a.prev { left: 0; }
 a.next { left: 188px; }
-.pCur { padding: 0 81px; width: 42px; }
+.pCur { padding: 0 81px; height: 128px; }
 .pCur span { display: block; text-indent: -9999px; }
 .pCur a{ text-decoration: none;}
 .pPrevNext a{ text-decoration: none;text-indent: -999px;}
@@ -242,7 +261,7 @@ a.next { left: 188px; }
 /* pLinks */
 .pLinks {
 	overflow: hidden;
-	padding: 10px 0 35px;
+	padding: 7px 0 10px 0;
 }
 .pLinks ul{
 	overflow: hidden;
@@ -280,7 +299,7 @@ ul.bottom-list { top: 111px; }
 /* ---------------------  FOOTER -------------------------- */
 /* -------------------------------------------------------- */
 
-footer ul { list-style-type: none; float: right; }
+footer ul { list-style-type: none; float: right; position: absolute; bottom: 10px; right: 0; }
 footer ul li { float: left;color: #9fa1a4; }
 footer ul li a {
 	text-decoration: none;color: #9fa1a4; 
@@ -295,7 +314,12 @@ footer {
 	bottom: 10px; right: 0;
 	width: 280px;
 }
-
+footer#sticky-footer {
+	position: relative;
+	margin: -230px auto 0; /* negative value of footer height */
+	height: 225px; width: 960px;
+	clear:both;
+}
 
 
 /* -------------------------------------------------------- */
@@ -307,6 +331,7 @@ footer {
 	background-image: url(images/story-sprite.png);
 	background-repeat: no-repeat;
 	opacity: 0.7;
+	text-indent: -9999px;
 }
 #output-box ul.main-list li a:hover {
 	opacity: 1;
@@ -330,202 +355,208 @@ footer {
 
 
 
-/* --------- people-1 ----------- */
+/* --------- people-2 // Magomed ----------- */
 
-#output-box.people-1 .pCur span {
-	background: url(images/pBig-1.png) no-repeat;
-	width: 45px; height: 119px;
+#sticky-footer.people-2 .pCur span {
+	background: url(images/story-sprite.png) -3213px -2848px no-repeat;
+	width: 51px; height: 128px;
 }
-#output-box.people-1 .image-story {
+#output-box.people-2 .image-story {
 	padding: 117px 0;
 }
-#output-box.people-1 a.step-1 {
+#output-box.people-2 a.step-1 {
 	background-position: 0 -105px;
 	width: 106px; height: 109px;
 }
-#output-box.people-1 a.step-3 {
+#output-box.people-2 a.step-3 {
 	background-position: -171px -105px;
 	width: 62px; height: 109px;
 }
-#output-box.people-1 ul.top-list a.step-5 {
+#output-box.people-2 ul.top-list a.step-5 {
 	background-position: -171px 0;
 	width: 62px; height: 60px;
 }
-#output-box.people-1 ul.bottom-list a.step-5 {
+#output-box.people-2 ul.bottom-list a.step-5 {
 	background-position: -171px -260px;
 	width: 62px; height: 58px;
 }
-#output-box.people-1 a.step-7 {
+#output-box.people-2 a.step-7 {
 	background-position: -292px -105px;
 	width: 66px; height: 109px;
 }
-#output-box.people-1 ul.top-list a.step-9 {
+#output-box.people-2 ul.top-list a.step-9 {
 	background-position: -292px 0;
 	width: 66px; height: 60px;
 }
-#output-box.people-1 ul.bottom-list a.step-9 {
+#output-box.people-2 ul.bottom-list a.step-9 {
 	background-position: -292px -260px;
 	width: 66px; height: 58px;
 }
-#output-box.people-1 ul.bottom-list a.step-11 {
+#output-box.people-2 ul.bottom-list a.step-11 {
 	background-position: -292px -360px;
 	width: 66px; height: 47px;
 }
-#output-box.people-1 a.step-13 {
+#output-box.people-2 a.step-13 {
 	background-position: -419px -105px;
 	width: 65px; height: 109px;
 }
-#output-box.people-1 a.step-15 {
+#output-box.people-2 a.step-15 {
 	background-position: -544px -105px;
 	width: 77px; height: 109px;
 }
 
-/* --------- people-2 ----------- */
+/* --------- people-5 // Samarpith ----------- */
 
-#output-box.people-2 .pCur span {
-	background: url(images/pBig-1.png) no-repeat;
-	width: 45px; height: 119px;
+#sticky-footer.people-5 .pCur span {
+	background: url(images/story-sprite.png) -3532px -2848px no-repeat;
+	width: 44px; height: 128px;
 }
-#output-box.people-2 .image-story {
+#output-box.people-5 .image-story {
 	padding: 220px 0;
 }
-#output-box.people-2 a.step-10.v-arrow{
+#output-box.people-5 a.step-10.v-arrow{
 	background-position: -746px -598px;
 	width: 55px;	height: 52px;
 }
-#output-box.people-2 a.step-1{
+#output-box.people-5 a.step-1{
 	background-position: -621px -650px;
 	width: 58px;	height: 96px;
 }
-#output-box.people-2 a.step-3{
+#output-box.people-5 a.step-3{
 	background-position: -742px -650px;
 	width: 62px;	height: 96px;
 }
-#output-box.people-2 ul.top-list a.step-5{
+#output-box.people-5 ul.top-list a.step-5{
 	background-position: -742px -538px;
 	width: 69px;	height: 60px;
 }
-#output-box.people-2 ul.top-list a.step-7{
+#output-box.people-5 ul.top-list a.step-7{
 	background-position: -742px -449px;
 	width: 69px;	height: 44px;
 }
-#output-box.people-2 ul.bottom-list a.step-5{
+#output-box.people-5 ul.bottom-list a.step-5{
 	background-position: -742px -799px;
 	width: 69px;	height: 62px;
 }
-#output-box.people-2 a.step-9{
+#output-box.people-5 a.step-9{
 	background-position: -867px -650px;
 	width: 55px;	height: 96px;
 }
-#output-box.people-2 ul.top-list a.step-11{
+#output-box.people-5 ul.top-list a.step-11{
 	background-position: -867px -538px;
 	width: 55px;	height: 60px;
 }
-#output-box.people-2 a.step-13{
+#output-box.people-5 a.step-13{
 	background-position: -991px -650px;
 	width: 74px;	height: 96px;
 }
 
 
 
-/* --------- people-3 ----------- */
+/* --------- people-4 // Alice ----------- */
 
-#output-box.people-3 .pCur span {
-	background: url(images/pBig-1.png) no-repeat;
-	width: 45px; height: 119px;
+#sticky-footer.people-4 .pCur {
+	padding: 0 81px 0 75px;
 }
-#output-box.people-3 .image-story {
+#sticky-footer.people-4 .pCur span {
+	background: url(images/story-sprite.png) -3418px -2848px no-repeat;
+	width: 58px; height: 128px;
+}
+#output-box.people-4 .image-story {
 	padding: 148px 0;
 }
-#output-box.people-3 a.step-1{
+#output-box.people-4 a.step-1{
 	background-position: -1065px -989px;
 	width: 73px;	height: 92px;
 }
-#output-box.people-3 a.step-3{
+#output-box.people-4 a.step-3{
 	background-position: -1199px -989px;
 	width: 61px;	height: 92px;
 }
-#output-box.people-3 ul.top-list a.step-5{
+#output-box.people-4 ul.top-list a.step-5{
 	background-position: -1199px -862px;
 	width: 61px;	height: 76px;
 }
-#output-box.people-3 ul.bottom-list a.step-5{
+#output-box.people-4 ul.bottom-list a.step-5{
 	background-position: -1199px -1136px;
 	width: 61px;	height: 58px;
 }
-#output-box.people-3 ul.bottom-list a.step-7{
+#output-box.people-4 ul.bottom-list a.step-7{
 	background-position: -1199px -1238px;
 	width: 61px;	height: 38px;
 }
-#output-box.people-3 a.step-9{
+#output-box.people-4 a.step-9{
 	background-position: -1320px -989px;
 	width: 68px;	height: 92px;
 }
-#output-box.people-3 ul.top-list a.step-11{
+#output-box.people-4 ul.top-list a.step-11{
 	background-position: -1311px -862px;
 	width: 90px;	height: 76px;
 }
-#output-box.people-3 ul.bottom-list a.step-11{
+#output-box.people-4 ul.bottom-list a.step-11{
 	background-position: -1311px -1136px;
 	width: 90px;	height: 58px;
 }
-#output-box.people-3 a.step-13{
+#output-box.people-4 a.step-13{
 	background-position: -1449px -989px;
 	width: 74px;	height: 92px;
 }
 
 
 
-/* --------- people-4 ----------- */
+/* --------- people-3 // Varghese ----------- */
 
-#output-box.people-4 .pCur span {
-	background: url(images/pBig-1.png) no-repeat;
-	width: 45px; height: 119px;
+#sticky-footer.people-3 .pCur{
+	padding: 0 81px 0 78px;
 }
-#output-box.people-4 .image-story {
+#sticky-footer.people-3 .pCur span {
+	background: url(images/story-sprite.png) -3313px -2848px no-repeat;
+	width: 48px; height: 128px;
+}
+#output-box.people-3 .image-story {
 	padding: 219px 0;
 }
-#output-box.people-4 a.h-arrow{
+#output-box.people-3 a.h-arrow{
 	background-position: -923px -635px;
 	width: 67px;	height: 96px;
 }
-#output-box.people-4 a.step-1{
+#output-box.people-3 a.step-1{
 	background-position: -1524px -1467px;
 	width: 116px;	height: 118px;
 }
-#output-box.people-4 a.step-3{
+#output-box.people-3 a.step-3{
 	background-position: -1702px -1480px;
 	width: 63px;	height: 118px;
 }
-#output-box.people-4 ul.top-list a.step-5{
+#output-box.people-3 ul.top-list a.step-5{
 	background-position: -1699px -1378px;
 	width: 63px;	height: 63px;
 }
-#output-box.people-4 ul.bottom-list a.step-5{
+#output-box.people-3 ul.bottom-list a.step-5{
 	background-position: -1699px -1634px;
 	width: 63px;	height: 66px;
 }
-#output-box.people-4 ul.bottom-list a.step-7{
+#output-box.people-3 ul.bottom-list a.step-7{
 	background-position: -1699px -1738px;
 	width: 63px;	height: 45px;
 }
-#output-box.people-4 a.step-9{
+#output-box.people-3 a.step-9{
 	background-position: -1822px -1480px;
 	width: 63px;	height: 118px;
 }
-#output-box.people-4 ul.top-list a.step-11{
+#output-box.people-3 ul.top-list a.step-11{
 	background-position: -1826px -1277px;
 	width: 57px;	height: 63px;
 }
-#output-box.people-4 ul.top-list a.step-13{
+#output-box.people-3 ul.top-list a.step-13{
 	background-position: -1822px -1378px;
 	width:60px;	height: 59px;
 }
-#output-box.people-4 ul.bottom-list a.step-11{
+#output-box.people-3 ul.bottom-list a.step-11{
 	background-position: -1826px -1634px;
 	width: 57px;	height: 66px;
 }
-#output-box.people-4 a.step-15{
+#output-box.people-3 a.step-15{
 	background-position: -1953px -1467px;
 	width: 73px;	height: 118px;
 }
@@ -533,56 +564,62 @@ footer {
 
 
 
-/* --------- people-5 ----------- */
+/* --------- people-1 // Prateek ----------- */
 
-#output-box.people-5 .pCur span {
-	background: url(images/pBig-1.png) no-repeat;
-	width: 45px; height: 119px;
+#output-box.people-1 ul.top-list {
+	bottom: 100px;
 }
-#output-box.people-5 .image-story {
-	padding: 240px 0;
+#output-box.people-1 ul.bottom-list {
+	top: 100px;
 }
-#output-box.people-5 a.step-1{
+#sticky-footer.people-1 .pCur span {
+	background: url(images/story-sprite.png) -3111px -2848px no-repeat;
+	width: 45px; height: 128px;
+}
+#output-box.people-1 .image-story {
+	padding: 225px 0;
+}
+#output-box.people-1 a.step-1{
 	background-position: -2026px -1992px;
 	width: 59px;	height: 96px;
 }
-#output-box.people-5 a.step-3{
+#output-box.people-1 a.step-3{
 	background-position: -2147px -1992px;
 	width: 64px;	height: 96px;
 }
-#output-box.people-5 ul.top-list a.step-5{
+#output-box.people-1 ul.top-list a.step-5{
 	background-position: -2137px -1878px;
 	width: 87px;	height: 63px;
 	margin: 0 0 0 -11px;
 }
-#output-box.people-5 ul.top-list a.step-7{
+#output-box.people-1 ul.top-list a.step-7{
 	background-position: -2145px -1783px;
 	width: 87px;	height: 56px;
 }
-#output-box.people-5 ul.bottom-list a.step-5{
+#output-box.people-1 ul.bottom-list a.step-5{
 	background-position: -2148px -2141px;
 	width: 87px;	height: 60px;
 }
-#output-box.people-5 ul.bottom-list a.step-7{
+#output-box.people-1 ul.bottom-list a.step-7{
 	background-position: -2147px -2242px;
 	width: 63px;	height: 87px;
 }
-#output-box.people-5 a.step-9{
+#output-box.people-1 a.step-9{
 	background-position: -2274px -1992px;
 	width: 55px;	height: 96px;
 	margin: 0 0 0 8px;
 }
-#output-box.people-5 ul.top-list a.step-11{
+#output-box.people-1 ul.top-list a.step-11{
 	background-position: -2274px -1878px;
 	width: 55px;	height: 63px;
 	margin: 0 0 0 8px;
 }
-#output-box.people-5 ul.bottom-list a.step-11{
+#output-box.people-1 ul.bottom-list a.step-11{
 	background-position: -2274px -2141px;
 	width: 55px;	height: 60px;
 	margin: 0 0 0 8px;
 }
-#output-box.people-5 a.step-13{
+#output-box.people-1 a.step-13{
 	background-position: -2397px -1992px;
 	width: 73px;	height: 96px;
 }

@@ -18,8 +18,9 @@
  $(document).ready(function(){
   
   // hides the necessary contents
-  $('#profile-1, #profile-2, #profile-3, #profile-4, #profile-5, footer ul,#output-box aside, #output-box section').hide();
+  $('#profile-1, #profile-2, #profile-3, #profile-4, #profile-5, footer ul,#output-box aside, #output-box section, #sticky-footer').hide();
   
+	
   // ===========================================================
 	//  Highlight paragraph on image-story icon hover
 	// ===========================================================
@@ -72,45 +73,50 @@
 	//  Animation sequence from Home Page
 	// ===========================================================
 	
-	var lastLiClass, lastLiNum;
+	var lastLiClass, lastLiNum, imgStory, imgStoryClone, flag=0;
 	
   function elemSelHome() {
     
     function seq1() {
-      $('#output-box .pLinks').html(pLinks.clone()).hide().fadeIn('slow');
-      $('#output-box .pCur').html(pCur.clone()).hide().fadeIn('fast');
+      $('#sticky-footer .pCur').html(pCur.clone()).hide().fadeIn('fast');
     }
     
     function seq2() {
-      $('#output-box .pDet1').html(pDet1.clone()).hide().fadeIn('fast');
+    	$('#output-box .pLinks').html(pLinks.clone()).hide().fadeIn('slow');
+      $('#sticky-footer .pDet1').html(pDet1.clone()).hide().fadeIn('fast');
       $('#output-box .image-story a').hide();
     }
     
     function seq3() {
-      $('#output-box .image-story').html(pImageStory.clone()).hide().fadeIn('slow');
+      imgStory = $('#output-box .image-story');
+      imgStoryClone = imgStory.html(pImageStory.clone());
+      
+      imgStoryWidth = imgStoryClone.width();
+      
+      imgStoryClone
+      	// .css({ width: imgStoryWidth })
+      	.hide().fadeIn('slow');
       
       lastLiClass = $('#output-box ul.main-list > li:last-child a').attr('class');
     	lastLiNum = lastLiClass.split('-');
     	lastLiNum = lastLiNum[1];
     	
       clearInterval(myFade);
-      fadeImageStory(lastLiNum);
-      
-      $('#output-box .pDet2-a').html(pDet2a.clone());
-      $('#output-box .pDet2-b').html(pDet2b.clone());
-      $('#output-box .pDet2').hide().fadeIn('slow');
-      $('#output-box .pPrevNext').html(pPrevNext.clone()).hide().fadeIn('slow');
-      $('footer ul').fadeIn('slow');
+      fadeImageStory(lastLiNum,pStory);
     }
     
-    function seq4() {
-   	  $('#output-box .pStory').html(pStory.clone()).hide().fadeIn('fast');
+    function seq4(){
+    	$('#sticky-footer .pDet2-a').html(pDet2a.clone());
+      $('#sticky-footer .pDet2-b').html(pDet2b.clone());
+      $('#sticky-footer .pDet2').hide().fadeIn('slow');
+      $('#sticky-footer .pPrevNext').html(pPrevNext.clone()).hide().fadeIn('slow');
+      $('footer ul').fadeIn('slow');
     }
     
     window.setTimeout( seq1 , 1250);
     window.setTimeout( seq2 , 2750);
     window.setTimeout( seq3 , 4000);
-    window.setTimeout( seq4 , 7000);
+    window.setTimeout( seq4 , 6000);
   }
   
   
@@ -118,16 +124,24 @@
   function elemSelInner() {
          
     $('#output-box .pLinks').html(pLinks.clone());
-    $('#output-box .pCur').html(pCur.clone());
+    $('#sticky-footer .pCur').html(pCur.clone());
     
-    $('#output-box .pDet1').html(pDet1.clone());
+    $('#sticky-footer .pDet1').html(pDet1.clone());
     
-    $('#output-box .pDet2-a').html(pDet2a.clone());
-    $('#output-box .pDet2-b').html(pDet2b.clone());
-    $('#output-box .pDet2').hide().show();
+    $('#sticky-footer .pDet2-a').html(pDet2a.clone());
+    $('#sticky-footer .pDet2-b').html(pDet2b.clone());
+    $('#sticky-footer .pDet2').hide().show();
     
-    $('#output-box .image-story').html(pImageStory.clone());
-    $('#output-box .pPrevNext').html(pPrevNext.clone());
+    imgStory = $('#output-box .image-story');
+    imgStoryClone = imgStory.html(pImageStory.clone());
+    
+    imgStoryWidth = imgStoryClone.width();
+    
+    imgStoryClone
+    	// .css({ width: imgStoryWidth })
+    	.hide().fadeIn('slow');
+      	
+    $('#sticky-footer .pPrevNext').html(pPrevNext.clone());
     
     $('#output-box .pStory').html(pStory.clone());
     
@@ -146,8 +160,8 @@
 	
   $('#people-list a').click(function(e){
     $('#people-list').hide();
-    $('#output-box aside, #output-box section').show();
-    $('#output-box').addClass(($(this).attr('class')));
+    $('#output-box aside, #output-box section, #sticky-footer').show();
+    $('#output-box, body, #sticky-footer').addClass(($(this).attr('class')));
     
     // runs the elemClone function
     elemClone($(this));    
@@ -159,7 +173,7 @@
 	//  Animation effect to start from clicking Inner Page links
 	// ===========================================================
 	
-  $('#output-box .pLinks a, #output-box .pPrevNext a').live('click', function(e) {
+  $('#output-box .pLinks a, #sticky-footer .pPrevNext a').live('click', function(e) {
     
     // prevents loading the content again if you click the active people link
     if($(this).hasClass('active')||$(this).hasClass('inactive')){
@@ -171,15 +185,15 @@
     }
     
     // clears any class from outputbox
-    $('#output-box').removeClass();
+    $('#output-box,body,#sticky-footer').removeClass();
     
     // if clicked link is the prevNext link
     if($(this).parent().hasClass('pPrevNext')) {
-    	$('#output-box').addClass('people-'+($(this).attr('data-pnum')));
+    	$('#output-box,body,#sticky-footer').addClass('people-'+($(this).attr('data-pnum')));
     }
     // else if clicked link is the small-people link
     else {
-    	$('#output-box').addClass(($(this).attr('class')));
+    	$('#output-box,body,#sticky-footer').addClass(($(this).attr('class')));
     }
     
     // adds an active class
@@ -196,25 +210,28 @@
 	// ===========================================================
 	
   var myFade;
-  function fadeImageStory(liNum) {
-      var step = 1;
-      var delay = 300;
+  function fadeImageStory(liNum,pStoryDiv) {
+  	var step = 1;
+    var delay = 300;
+    var total = parseInt(liNum);
+    total = total+1;
     
-      function autoFadeIn() {
-        fadeIn();
-        step++;
-        if(step == liNum+1) {
-            clearInterval(myFade);
-        }
+    function autoFadeIn() {
+    	fadeIn();
+      step++;
+      if(step === total) {
+      	clearInterval(myFade);
+      	$('#output-box .pStory').html(pStoryDiv.clone()).hide().fadeIn('fast');
       }
-      
-      $('#output-box .image-story a').hide();
-    
-      function fadeIn() {
-          $('#output-box .step-' + step).fadeIn(delay);
-      }
-    
-      myFade = setInterval(autoFadeIn, delay);
     }
+      
+    $('#output-box .image-story a').hide();
+    
+    function fadeIn() {
+    	$('#output-box .step-' + step).fadeIn(delay);
+    }
+    
+    myFade = setInterval(autoFadeIn, delay);
+	}
   
 });
