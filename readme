@@ -1,11 +1,11 @@
 // website backup code for becabo website by wowmakers.com
 
-Status :
+Status (97% complete):
 ----------
 - Integrated Javascript functionalities
-- Added sprite images for story animation
+- Made tweaks for sprite images for story animation
+- Added correct contents except the story text
 
 To do :
 -------
-- Add appropriate contents
-- Integrate image preloading
+- Story text to be added for each people
